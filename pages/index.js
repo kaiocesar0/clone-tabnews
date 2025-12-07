@@ -6,9 +6,6 @@ function Home() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Nome:", nome);
-    console.log("Email:", email);
-    // Aqui você pode adicionar a lógica para enviar os dados
   };
 
   return (
