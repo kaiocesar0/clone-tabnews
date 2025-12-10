@@ -10,7 +10,7 @@ function Home() {
 
   return (
     <div>
-      <h1>Olá Devs</h1>
+      <h1>Hello</h1>
 
       <form onSubmit={handleSubmit}>
         <div>
