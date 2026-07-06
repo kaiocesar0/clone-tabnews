@@ -1,0 +1,38 @@
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background-color: #0a0a0a;
+  color: #ededed;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: #7eb8ff;
+}
+
+input,
+button {
+  font: inherit;
+}
+
+input {
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+  color: #ededed;
+}
+
+button {
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+  color: #ededed;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #262626;
+}
