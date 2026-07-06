@@ -1,4 +1,5 @@
 import { Client } from "pg";
+import { ServicesError } from "infra/errors";
 
 async function query(queryObject) {
   let client;
@@ -7,9 +8,11 @@ async function query(queryObject) {
     const result = await client.query(queryObject);
     return result;
   } catch (error) {
-    console.log("\n Error dentro do catch do database");
-    console.error(error);
-    throw error;
+    throw new ServicesError({
+      cause: error,
+      message: "Erro na conexão com Banco ou na Query.",
+      statusCode: 503,
+    });
   } finally {
     await client?.end();
   }
