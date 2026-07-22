@@ -1,4 +1,5 @@
 import database from "infra/database.js";
+import password from "models/password.js";
 import { ValidationError, NotFoundError } from "infra/errors.js";
 
 async function create(userInputValues) {
@@ -47,9 +48,15 @@ async function create(userInputValues) {
     }
   }
 
+  async function hashPasswordInObject(userInputValues) {
+    const hashedPassword = await password.hash(userInputValues.password);
+    userInputValues.password = hashedPassword;
+  }
+
   async function runInsertQuery(userInputValues) {
     await validateUniqueEmail(userInputValues.email);
     await validateUniqueUsername(userInputValues.username);
+    await hashPasswordInObject(userInputValues);
     const result = await database.query({
       text: `
         INSERT INTO users (username, email, password)
