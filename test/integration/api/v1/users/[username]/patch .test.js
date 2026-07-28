@@ -62,7 +62,7 @@ describe("PATCH /api/v1/users/[username]", () => {
     });
 
     test("With duplicated 'email'", async () => {
-      await orchestrator.createUser({
+      const createdUser1 = await orchestrator.createUser({
         email: "email1@example.com",
       });
 
@@ -78,7 +78,7 @@ describe("PATCH /api/v1/users/[username]", () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: createdUser2.email,
+            email: createdUser1.email,
           }),
         },
       );
