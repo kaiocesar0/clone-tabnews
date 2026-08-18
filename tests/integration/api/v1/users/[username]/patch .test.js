@@ -1,4 +1,4 @@
-import orchestrator from "../../orchestrator";
+import orchestrator from "../../../../../orchestrator";
 import { version as uuidVersion } from "uuid";
 import user from "models/user.js";
 import password from "models/password.js";
