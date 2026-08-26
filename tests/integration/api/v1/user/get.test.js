@@ -26,18 +26,15 @@ describe("Get /api/v1/user", () => {
 
       expect(response.status).toBe(200);
 
+      const cacheControl = response.headers.get("Cache-Control");
+      expect(cacheControl).toBe(
+        "no-store, no-cache, max-age=0, must-revalidate",
+      );
+
       // Simulate session almost expired
       jest.useFakeTimers({
         now: new Date(Date.now() + session.EXPIRATION_IN_MILLISECONDS - 1),
       });
-      console.log(
-        new Date(Date.now() + session.EXPIRATION_IN_MILLISECONDS - 1000),
-        "now",
-      );
-      console.log(
-        new Date(Date.now() + session.EXPIRATION_IN_MILLISECONDS),
-        "expires_at",
-      );
 
       const responseBody = await response.json();
       expect(responseBody).toEqual({
