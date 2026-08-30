@@ -88,12 +88,26 @@ describe("Get /api/v1/user", () => {
         },
       });
 
+      expect(response.status).toBe(401);
+
       const responseBody = await response.json();
       expect(responseBody).toEqual({
         name: "UnauthorizedError",
         message: "Sessão inválida.",
         action: "Faça login novamente.",
         statusCode: 401,
+      });
+
+      // Set-Cookie assertions
+      const parsedSetCookie = setCookieParser(response, {
+        map: true,
+      });
+      expect(parsedSetCookie.session_id).toEqual({
+        name: "session_id",
+        value: "invalid",
+        maxAge: -1,
+        path: "/",
+        httpOnly: true,
       });
     });
   });
@@ -125,6 +139,18 @@ describe("Get /api/v1/user", () => {
       message: "Sessão inválida.",
       action: "Faça login novamente.",
       statusCode: 401,
+    });
+
+    // Set-Cookie assertions
+    const parsedSetCookie = setCookieParser(response, {
+      map: true,
+    });
+    expect(parsedSetCookie.session_id).toEqual({
+      name: "session_id",
+      value: "invalid",
+      maxAge: -1,
+      path: "/",
+      httpOnly: true,
     });
   });
 });
